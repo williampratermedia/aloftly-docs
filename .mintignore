@@ -5,3 +5,10 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Internal planning docs (specs, porting map) — never published
+internal/
+
+# Agent context files — not documentation pages
+AGENTS.md
+CLAUDE.md
