@@ -1,0 +1,106 @@
+---
+title: "Intelligems"
+description: "Connect Intelligems to Aloftly to import A/B test results — conversion lift, revenue per visitor, and probability to beat control — and pull live experiment results into Experiment OS."
+---
+
+The Intelligems integration brings your A/B test results into Aloftly. Test performance syncs into your dashboards automatically, and Experiment OS can link an experiment record directly to an Intelligems experience to show its live results.
+
+## What Aloftly imports
+
+| Metric | What it tells you |
+| --- | --- |
+| Conversion lift | How a variation's conversion rate compares to control |
+| Revenue per visitor | Net revenue per visitor for each variation |
+| Probability to beat control | The likelihood a variation outperforms control |
+| Revenue impact | Estimated monthly revenue increase for the experience |
+
+<Info>
+  Intelligems reports lifetime results for each experience, not day-by-day history. Aloftly records a snapshot of those results at each sync, so your trend data starts building from the day you connect — earlier daily history can't be reconstructed retroactively.
+</Info>
+
+## Connect Intelligems
+
+### Prerequisites
+
+- An Intelligems account with External API access.
+- A store added to Aloftly, with owner or admin access.
+
+### Steps
+
+<Steps>
+  <Step title="Create an API key in Intelligems">
+    In Intelligems, go to **Settings > Integrations > External API** and select **Enable**. Copy the generated API key.
+  </Step>
+  <Step title="Add the connection in Aloftly">
+    Open your store's **Integrations** page, select **Intelligems**, paste the API key, and connect.
+
+    Aloftly verifies the key with Intelligems before saving it. An invalid or revoked key is rejected immediately.
+  </Step>
+</Steps>
+
+<Check>
+  Once connected, your first sync starts and the connection shows as **Connected** when it completes.
+</Check>
+
+Your API key is stored encrypted and is never shown again after you save it.
+
+### Replace an API key
+
+Aloftly can't verify that a replacement key belongs to the same Intelligems account, so keys can't be swapped in place. To use a new key, disconnect Intelligems and reconnect with the new key. This prevents results from two different Intelligems accounts from being mixed together.
+
+## How syncing works
+
+- Results sync automatically once a day. You can also trigger a manual re-sync from the Integrations page.
+- Experiences that are started, paused, or ended are synced. Pending experiences are skipped because they have no results yet.
+- If results for one experience fail to load, Aloftly keeps the results that did load and marks the sync as degraded rather than reporting a clean success. Retry the sync from the Integrations page.
+
+## Use results in Experiment OS
+
+Experiment OS pulls live results directly from Intelligems, on demand — it doesn't wait for the daily sync.
+
+1. In an experiment record, link an Intelligems experience from the experience picker. The picker lists your most recent experiences (up to 100), sorted by start time.
+2. Aloftly maps every variation's results into the experiment: visitors, orders, conversion rate with confidence interval, net revenue, revenue per visitor, probability to beat control, and uplift.
+3. The experiment headline compares control against one variation. If you haven't chosen one, Aloftly uses the non-control variation with the highest probability to beat baseline.
+
+For revenue-primary tests, statistical certainty is based on revenue per visitor; other tests use conversion rate. The variant table and the experiment headline always use the same significance rule.
+
+<Note>
+  Linking experiences requires experiment management permission in your organization.
+</Note>
+
+## Lifecycle webhooks
+
+An optional webhook can record experiment lifecycle events — created, started, paused, ended — as they happen in Intelligems. It's off by default, and turning it on or off never affects results syncing.
+
+Webhook setup is being finalized with Intelligems and isn't generally available yet. If you want early access to it, contact [support@aloftly.com](mailto:support@aloftly.com).
+
+## Connection health
+
+| State | Meaning | What to do |
+| --- | --- | --- |
+| Connected | The API key works and the latest sync completed | Nothing |
+| Syncing | A sync is running or recently queued | Wait |
+| Sync did not start | A pending sync hasn't started for over 15 minutes | Re-sync |
+| Action needed | Intelligems rejected the API key | Disconnect and reconnect with a valid key |
+| Error | A provider or network issue prevented a clean sync | Review the details and retry |
+
+## Disconnect
+
+Disconnecting Intelligems stops scheduled syncs and webhook processing. If you registered a webhook URL in Intelligems, remove it there as well — Intelligems webhook registration is manual, so Aloftly can't remove it for you.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The connection says Action needed" icon="key">
+    Intelligems rejected the API key. Disconnect the integration, generate or retrieve a valid External API key in Intelligems, and reconnect.
+  </Accordion>
+  <Accordion title="No historical trend appears for dates before I connected" icon="chart-line">
+    This is expected. Intelligems reports lifetime results, so Aloftly's trend data is built from daily snapshots that start on the day you connect.
+  </Accordion>
+  <Accordion title="Some experiences are missing from the Experiment OS picker" icon="list">
+    The picker currently shows your 100 most recent experiences. Search and pagination beyond that aren't available yet.
+  </Accordion>
+  <Accordion title="A sync shows as degraded or errored" icon="triangle-alert">
+    Results for at least one experience failed to load while the rest were kept. Retry the sync from the Integrations page. If it keeps failing, contact [support@aloftly.com](mailto:support@aloftly.com).
+  </Accordion>
+</AccordionGroup>

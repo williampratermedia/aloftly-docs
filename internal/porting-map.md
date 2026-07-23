@@ -1,6 +1,14 @@
 # Porting map — aloftly-analytics/docs → public docs
 
 **Source:** `C:\Users\billy\Documents\GitHub\aloftly-analytics\docs\` (read-only; 21 files surveyed 2026-07-21)
+
+> **Update 2026-07-23 — app repo docs reorganized** (PR #230 / issue #229):
+>
+> - `docs/integrations/` is now the **only public Mintlify source material** — docs written there are intended for porting to this site.
+> - Internal references moved under `docs/internal-docs/` (subfolders: `architecture`, `engineering`, `functionality-documentation`, `operations`, `plans`, `strategy`).
+> - Completed runbooks (BetterAuth cutover, integration rollout) moved to `docs/archived-ignore/`.
+> - Every doc now carries lifecycle frontmatter (`audience`, `visibility`, `status`, `last_reviewed`, `implementation_state`). Check `visibility: public` before porting, and still rewrite at user altitude — public-flagged docs can carry engineering detail (implementation maps, env vars, internal endpoints) that stays out of this site.
+> - Part 1 below reflects the pre-reorg paths; prefix old `functionality-documentation/`, `plans/`, etc. references with `internal-docs/` when locating them.
 **Purpose:** the roadmap for building out this docs site. Any session adding pages starts here: pick a page from the target IA, use the listed source docs as *raw material*, rewrite for the user audience, add the page to `docs.json` navigation, and update the Status column below.
 
 **Ground rules** (see AGENTS.md for full boundaries):
@@ -71,7 +79,7 @@ Pages exist only in this map until written; only shipped pages go in `docs.json`
 | ⬜ | `integrations/shopify` | Connect flow (OAuth install), what data syncs (orders, revenue), permissions requested and why. |
 | ⬜ | `integrations/google-analytics-4` | Connect flow, property selection, what data syncs. |
 | ⬜ | `integrations/microsoft-clarity` | Connect flow, what data syncs (heatmap/session signals). |
-| ⬜ | `integrations/intelligems` | Connect flow, how test results flow into Experiments. |
+| ✅ | `integrations/intelligems` | Connect flow, synced metrics, Experiment OS linking, health states, troubleshooting. Source: `docs/integrations/intelligems.md` (2026-07-23). Lifecycle-webhook setup intentionally omitted — embargoed pending app-repo issue #227; revisit when resolved. |
 | ⬜ | `integrations/knocommerce` | Connect flow, survey data. |
 | ⬜ | `integrations/gorgias` | Connect flow, ticket sentiment. |
 | ⬜ | `integrations/judgeme` | Connect flow, review data. |
@@ -103,7 +111,7 @@ Pages exist only in this map until written; only shipped pages go in `docs.json`
 ### Suggested writing order
 
 1. `integrations/overview` + `integrations/shopify` (the first thing every new user does)
-2. Remaining integration pages (one session can batch several — same template)
+2. Remaining integration pages (one session can batch several — `integrations/intelligems` shipped 2026-07-23 and is the template)
 3. `features/experiments` (strong source doc exists)
 4. `features/overview`, `account/organizations`
 5. `features/dashboards`, `account/team`, `account/billing`

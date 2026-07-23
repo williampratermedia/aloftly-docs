@@ -17,6 +17,12 @@
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
+          "integrations/intelligems"
+        ]
       }
     ]
   },
