@@ -43,13 +43,37 @@ A cache-busting query string still returns `cf-cache-status: HIT`, so the cache 
 
 Identical content navigates correctly on `aloftly.mintlify.app`, where every asset comes from a single deployment (`dpl_4sj1y6YapSzDrgGCFZSWj32ncNRX`). Mintlify's own docs site navigates normally. Nothing in `docs.json`, the MDX pages, or `.mintignore` contributes.
 
+### Why our domain and not other Mintlify sites
+
+Sampled 2026-08-06. Our hostname is the only one being cached:
+
+| Domain | CNAME target | Terminates at | `CF-Cache-Status` | Doc vs RSC build |
+| --- | --- | --- | --- | --- |
+| **docs.aloftly.com** | `cname.mintlify.builders` | Mintlify's Cloudflare | **HIT** | **mismatch** |
+| docs.mem0.ai | (own proxied zone) | own Cloudflare | DYNAMIC | match |
+| docs.novu.co | (own proxied zone) | own Cloudflare | DYNAMIC | match |
+| docs.windsurf.com | `cname.vercel-dns.com` | Vercel | — | match |
+| docs.unstructured.io | `unstructured-53.mintlify.app` | Vercel | — | match |
+
+`cname.mintlify.builders` is the target [Mintlify's current docs specify](https://www.mintlify.com/docs/customize/custom-domain), so **our DNS is correct**. It routes through Mintlify's newer custom-hostname proxy (`x-mint-proxy-version: 1.0.0-prod`, Cloudflare for SaaS). The comparison sites are all on older paths that bypass that proxy. The defect is in the new path, which is why it has gone unnoticed.
+
+The working sites' cache ages clustered tightly at ~11,700–11,900s, indicating a global purge when platform build `dpl_4NzK` rolled out. Our entries survived that purge and keep aging monotonically — they never revalidate.
+
+### What has been ruled out
+
+- **Our repo.** Identical content navigates correctly on `aloftly.mintlify.app`, all from one build (`dpl_4sj1…`). The `<Card href>` on the landing page renders correctly there — the missing `href` seen on the broken domain is an artifact of the mixed-build page, not a content bug.
+- **Our DNS.** Matches Mintlify's documented CNAME target; our Cloudflare zone is DNS-only, as their guide requires.
+- **Our Cloudflare.** DNS-only means our zone never proxies these requests.
+- **A no-op republish.** Pushing `internal/`-only commits did not help — GitHub reports `Mintlify Deployment: completed/skipped`, because every changed file is mintignored. **This means "does a real publish clear it?" is still untested.**
+
 ### Fix
 
-**Contact Mintlify support** and ask them to purge the edge cache for `docs.aloftly.com`. Useful details to include: custom domains are serving 36–60 hour stale HTML from multiple builds while RSC payloads are current, which breaks App Router client-side navigation via deployment skew; `aloftly.mintlify.app` is unaffected.
+1. **Trigger a real rebuild** (any change to a published file, or the dashboard's redeploy action) and re-run the verification below. This is the only untested lever within our control. Note the last real deployment was 2026-07-23, while the stale cache entries were created 2026-08-04/05 — so entries are minted on cache miss, not at publish time, and a republish may not evict them.
+2. **If that does not work, contact Mintlify support.** Include: `docs.aloftly.com` (custom hostname via `cname.mintlify.builders`) returns `CF-Cache-Status: HIT` on HTML despite the origin sending `cache-control: no-store`; documents are 36–60h stale across builds `dpl_6aNr` and `dpl_3Xej` while RSC payloads serve `dpl_4NzK`; the resulting deployment skew silently breaks App Router navigation; other custom domains return `DYNAMIC`; `aloftly.mintlify.app` is unaffected. Ask them to purge the edge cache for the hostname and check why it is cacheable at all.
 
-Do **not** expect a redeploy to fix it — at least three deployments (`6aNr`, `3Xej`, `4NzK`) have shipped without evicting the older cached documents.
+Two riskier options, **not to be attempted without Mintlify confirming**: re-provisioning the custom hostname (`removeCustomDomain` / `addCustomDomainV2`, or `retriggerCustomHostnameValidation`) may reset the cache state but risks certificate downtime; re-pointing the CNAME at `aloftly.mintlify.app` bypasses the broken proxy (this is effectively what unstructured.io does) but may not have a valid certificate for our hostname on that path.
 
-Until it is resolved, `aloftly.mintlify.app` is a working URL.
+Until resolved, `aloftly.mintlify.app` is a working URL.
 
 ### Verifying the fix
 
