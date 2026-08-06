@@ -125,3 +125,4 @@ Pages exist only in this map until written; only shipped pages go in `docs.json`
 - [ ] Confirm support email — `support@aloftly.com` is assumed in `docs.json`, `index.mdx`, `quickstart.mdx`.
 - [ ] Rewrite `README.md` (still describes the Mintlify starter kit).
 - [ ] Verify the Mintlify deployment's custom domain (docs.aloftly.com?) once decided.
+- [ ] **Fix Cloudflare caching on `docs.aloftly.com`** — its edge cache serves a stale build, which breaks all sidebar navigation. See [known-issues.md](known-issues.md).
