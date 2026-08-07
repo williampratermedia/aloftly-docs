@@ -1,0 +1,76 @@
+---
+title: "Sales by channel"
+description: "Shopify-admin total sales by sales channel."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `shopify.sales_by_channel` |
+| Source | Shopify |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = ShopifyQL total_sales grouped by day and sales_channel. Zero rows are omitted after the replacement window is cleared.
+```
+
+### Built from
+
+- `ShopifyQL total_sales`
+- `ShopifyQL sales_channel`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Revenue by channel widget
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+daily_snapshot; entity: store; same-day fold: sum; additivity: semi_additive.
+
+**Join and identity keys**
+
+- snapshotDate
+- channel
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated request.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- ShopifyQL sales values are used as reported; no extra paid-order filter is added by Aloftly.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** ShopifyQL groups by the shop reporting date; Aloftly stores that date as a UTC-midnight label. Order lifecycle events retain their provider timestamp.
+
+**Currency.** Currency values use Shopify shop-money amounts. Aloftly does not perform foreign-exchange conversion; mixed-currency all-store totals must not be interpreted as converted currency.
+
+**Freshness.** Finalized daily snapshot from Shopify.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered Shopify authority and metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

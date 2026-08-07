@@ -1,0 +1,66 @@
+---
+title: "Average first response time"
+description: "Reserved dashboard field for average first response time. Aloftly does not currently source this metric."
+tag: "Planned"
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.gorgias.first_response_time` |
+| Source | Gorgias |
+| Status | planned |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+Unavailable: no active producer publishes a response-time metric.
+```
+
+## Known caveats
+
+- The current dashboard field must render unavailable, never zero.
+
+## Where this appears
+
+- Not currently surfaced
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+Not defined until a provider contract is implemented.
+
+**Join and identity keys:** none.
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+None.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Not defined.
+
+**Currency.** Not applicable.
+
+**Freshness.** Not sourced.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-07-27 | Reserved the response-time contract as planned and blocked. |
+
+</Accordion>
+
+</AccordionGroup>

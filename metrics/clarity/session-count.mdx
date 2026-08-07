@@ -1,0 +1,76 @@
+---
+title: "Sessions"
+description: "Clarity session count."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `clarity.session_count` |
+| Source | Microsoft Clarity |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = Microsoft Clarity Traffic.totalSessionCount.
+```
+
+### Built from
+
+- `project-live-insights Traffic.totalSessionCount`
+
+## Known caveats
+
+- Provider history window is limited.
+- Dashboard compositions fail closed when known rolling snapshot windows overlap; other consumers must not sum overlapping windows.
+
+## Where this appears
+
+- Site Behavior widget
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+daily_snapshot; entity: traffic_segment; same-day fold: sum; additivity: semi_additive.
+
+**Join and identity keys**
+
+- projectId
+- snapshotDate
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, and Clarity project are resolved server-side.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- Page publication is limited to the top 100 canonical pages by sessions per snapshot.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Aloftly stamps Clarity snapshots to the previous UTC day. Initial multi-day provider windows can overlap later one-day snapshots.
+
+**Currency.** Not applicable.
+
+**Freshness.** Clarity daily sync.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered Clarity behavior contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

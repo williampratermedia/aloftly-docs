@@ -1,0 +1,80 @@
+---
+title: "Page views"
+sidebarTitle: "Page views (by segment)"
+description: "GA4 page views by acquisition and device segment."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `ga4.page_views` |
+| Source | Google Analytics 4 |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = SUM(GA4 screenPageViews) at property/day/channel/source/medium/device grain.
+```
+
+### Built from
+
+- `GA4 Data API screenPageViews`
+
+## Known caveats
+
+- Not page-grain; use ga4.page_engagement for canonical page rows.
+
+## Where this appears
+
+- Traffic reporting and dashboard builder
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+daily_snapshot; entity: traffic_segment; same-day fold: sum; additivity: semi_additive.
+
+**Join and identity keys**
+
+- propertyId
+- snapshotDate
+- channel
+- source
+- medium
+- device
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, and GA4 property are resolved server-side.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- Site reports preserve acquisition/device segments; page reports retain the top 75 pages per day.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** GA4 report dates are property-calendar dates normalized to UTC-midnight labels. They are not rebucketed in the browser timezone.
+
+**Currency.** Not applicable.
+
+**Freshness.** Daily scheduled sync.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered GA4 traffic and page contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

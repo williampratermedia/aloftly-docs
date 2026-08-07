@@ -1,0 +1,78 @@
+---
+title: "Probability to win"
+description: "Provider probability that a variation beats the control."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `intelligems.probability_to_beat_control` |
+| Source | Intelligems |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = variation.conversionRate.p2bb for each non-control variation in the current unfiltered result snapshot.
+```
+
+### Built from
+
+- `POST analytics variation.conversionRate.p2bb`
+
+## Known caveats
+
+- Canonical scoped POST snapshot; provider Bayesian probability must never be summed.
+
+## Where this appears
+
+- A/B Test Results widget
+- Experiment OS evidence
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+experiment_snapshot; entity: variation; same-day fold: sum; additivity: non_additive.
+
+**Join and identity keys**
+
+- sourceLineageId
+- experienceId
+- variationId
+- snapshotDate
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, connection lineage, experiment, and result scope are server-derived.
+- Generic metric publication uses only the unfiltered scope; linked custom-event scopes remain in Experiment OS.
+- Current variation metrics exclude the control variation unless the field describes the experiment as a whole.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Result snapshots require a verified IANA Intelligems reporting timezone. Provider-local days are stored with their UTC bucket boundaries.
+
+**Currency.** Not applicable.
+
+**Freshness.** Hourly scheduled capture while the experiment is relevant.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-30 | Moved current-result metrics to the canonical scoped POST publisher. |
+
+</Accordion>
+
+</AccordionGroup>

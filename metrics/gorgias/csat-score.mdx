@@ -1,0 +1,76 @@
+---
+title: "CSAT score"
+description: "Raw 1-5 Gorgias satisfaction survey score."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `gorgias.csat_score` |
+| Source | Gorgias |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = raw Gorgias satisfaction survey score from 1 through 5.
+```
+
+### Built from
+
+- `SatisfactionSurvey.score`
+- `scored_datetime`
+
+## Known caveats
+
+- Average raw rating, not top-box CSAT percentage.
+
+## Where this appears
+
+- Ticket Volume and CSAT widget
+- Metric evidence
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+event; entity: ticket; same-day fold: sum; additivity: non_additive.
+
+**Join and identity keys**
+
+- surveyId
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated connection.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- No channel or ticket-status filter is applied unless the requesting surface explicitly adds one.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Provider event timestamps are stored as instants and grouped into UTC date windows by current dashboard reads.
+
+**Currency.** Not applicable.
+
+**Freshness.** Webhook and daily backfill.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered support metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

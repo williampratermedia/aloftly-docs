@@ -1,0 +1,72 @@
+---
+title: "Total stores"
+description: "Connected store records included in the organization-wide Stores view."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.stores.total` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+COUNT(stores.id) after excluding pending placeholder stores without a Shopify domain.
+```
+
+### Built from
+
+- `stores.id`
+- `stores.shopify_domain`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Stores all-stores summary
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One organization-wide count at render time.
+
+**Join and identity keys**
+
+- Organization id
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Pending placeholder stores without a Shopify domain are excluded.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** As-of value; no event-time window is applied.
+
+**Currency.** Not applicable.
+
+**Freshness.** Computed from the current tenant-scoped store rows at render time.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the Stores count receipt contract. |
+
+</Accordion>
+
+</AccordionGroup>

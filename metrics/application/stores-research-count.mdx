@@ -1,0 +1,73 @@
+---
+title: "Research count"
+description: "Aloftly research records assigned to one store."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.stores.research_count` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+COUNT(cro_research.id) grouped by store_id.
+```
+
+### Built from
+
+- `cro_research.id`
+- `cro_research.store_id`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Stores store cards
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One count per store at render time.
+
+**Join and identity keys**
+
+- Organization id
+- Store id
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Tenant and store scope are enforced by the research rows.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** As-of value; no event-time window is applied.
+
+**Currency.** Not applicable.
+
+**Freshness.** Computed from current Experiment OS rows at render time.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the Stores research-count receipt contract. |
+
+</Accordion>
+
+</AccordionGroup>

@@ -1,0 +1,74 @@
+---
+title: "Control revenue per visitor"
+description: "Revenue per visitor for the control experience."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `experiment_os.control_rpv` |
+| Source | Experiment OS |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+Stored value = cro_experiments.control_rpv.
+```
+
+### Built from
+
+- `Manual input or approved linked-result projection`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Experiment detail Results tab
+- Experiment OS computed result fields
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One Aloftly experiment record.
+
+**Join and identity keys**
+
+- org_id
+- store_id
+- experiment id
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Tenant scope is enforced by the experiment row.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Not applicable.
+
+**Currency.** Experiment OS does not currently retain the Intelligems checkpoint currency; linked values render without a symbol.
+
+**Freshness.** Changes only when an authorized save or approved Intelligems projection updates the experiment.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-07-02 | Established the Experiment OS result-input contract. |
+
+</Accordion>
+
+</AccordionGroup>

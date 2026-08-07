@@ -12,3 +12,9 @@ internal/
 # Agent context files — not documentation pages
 AGENTS.md
 CLAUDE.md
+
+# Installed agent skills (symlinked; break the build on Windows)
+.agents/
+.augment/
+.hermes/
+skills-lock.json

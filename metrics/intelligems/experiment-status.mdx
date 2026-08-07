@@ -1,0 +1,77 @@
+---
+title: "Experiment lifecycle"
+description: "Authenticated experiment lifecycle event."
+tag: "Supporting"
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `intelligems.experiment_status` |
+| Source | Intelligems |
+| Status | supporting |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+value = 1 for each authenticated experiment lifecycle event.
+```
+
+### Built from
+
+- `Intelligems webhook experience id`
+- `action`
+
+## Known caveats
+
+- Lifecycle state is not a KPI.
+
+## Where this appears
+
+- Integration lifecycle processing; not displayed as a KPI
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+event; entity: experiment; same-day fold: sum; additivity: additive.
+
+**Join and identity keys**
+
+- experienceId
+- action
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, connection lineage, experiment, and result scope are server-derived.
+- Generic metric publication uses only the unfiltered scope; linked custom-event scopes remain in Experiment OS.
+- Current variation metrics exclude the control variation unless the field describes the experiment as a whole.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Result snapshots require a verified IANA Intelligems reporting timezone. Provider-local days are stored with their UTC bucket boundaries.
+
+**Currency.** Not applicable.
+
+**Freshness.** Webhook delivery plus hourly scheduled sync.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-30 | Moved current-result metrics to the canonical scoped POST publisher. |
+
+</Accordion>
+
+</AccordionGroup>

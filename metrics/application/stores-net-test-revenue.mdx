@@ -1,0 +1,73 @@
+---
+title: "Net test revenue"
+description: "Sum of eligible Experiment OS test incremental revenue, including wins and losses."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.stores.net_test_revenue` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+SUM(cro_experiments.test_incremental_revenue) over experiments eligible for ROI attribution.
+```
+
+### Built from
+
+- `cro_experiments.test_incremental_revenue`
+
+## Known caveats
+
+- Null means no measured eligible experiment result.
+- The currency is unknown until Experiment OS persists it explicitly.
+
+## Where this appears
+
+- Stores store cards
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One store-wide lifetime sum across eligible experiments.
+
+**Join and identity keys**
+
+- Organization id
+- Store id
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Only experiments eligible for ROI attribution are included.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Lifetime as-of value; no event-time window is applied.
+
+**Currency.** Experiment OS does not yet persist a currency code for this rollup.
+
+**Freshness.** Computed from current eligible Experiment OS rows at render time.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the Stores net-test-revenue receipt contract. |
+
+</Accordion>
+
+</AccordionGroup>

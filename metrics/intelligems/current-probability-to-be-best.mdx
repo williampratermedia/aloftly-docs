@@ -1,0 +1,77 @@
+---
+title: "Probability to be best"
+description: "Provider probability that one variation is the best choice."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `intelligems.current.probability_to_be_best` |
+| Source | Intelligems |
+| Status | active |
+| Type | source |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+Stored normalized checkpoint value = variation.conversionRate.p2bc.
+```
+
+### Built from
+
+- `variation.conversionRate.p2bc`
+
+## Known caveats
+
+- This is a mutable current checkpoint, not a value to sum across captures.
+
+## Where this appears
+
+- Intelligems catalog detail
+- Experiment OS when linked and projection is approved
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One variation within an experiment/result-scope/lifecycle checkpoint.
+
+**Join and identity keys**
+
+- source lineage
+- experience id
+- scope hash
+- lifecycle version
+- variation id when applicable
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- The catalog displays the current unfiltered checkpoint.
+- Linked Experiment OS scopes can apply explicit custom-event filters.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** captured_at is an instant; daily result history additionally requires a verified Intelligems IANA timezone.
+
+**Currency.** Not applicable.
+
+**Freshness.** Hourly while relevant, with final settlement and scheduled correction checks after pause/end.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-07-29 | Established durable scoped result checkpoints and settlement. |
+
+</Accordion>
+
+</AccordionGroup>

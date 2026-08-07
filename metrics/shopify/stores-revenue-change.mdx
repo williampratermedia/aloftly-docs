@@ -1,0 +1,74 @@
+---
+title: "Revenue change"
+description: "Percentage change in Shopify revenue versus the immediately preceding equal-length period."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.stores.revenue_change` |
+| Source | Shopify |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+100 * (primary_revenue - comparison_revenue) / NULLIF(comparison_revenue, 0).
+```
+
+### Built from
+
+- `shopify.revenue`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Per-store breakdown table
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One store over aligned primary and comparison windows.
+
+**Join and identity keys**
+
+- Organization id
+- Store id
+- Equal-length UTC date windows
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Unavailable when comparison-period revenue is zero.
+- No foreign-exchange conversion is applied.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Both operands use half-open UTC windows.
+
+**Currency.** Both periods must use the same Shopify currency.
+
+**Freshness.** Inherited from the least-fresh Shopify revenue operand.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the Stores revenue-change receipt contract. |
+
+</Accordion>
+
+</AccordionGroup>

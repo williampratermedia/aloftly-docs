@@ -1,0 +1,67 @@
+---
+title: "A/B Test Results"
+description: "The latest Intelligems result snapshot for each experiment and variation in scope."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.report.ab_test_results` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+Folds certified Intelligems metric snapshots by experiment, variation, and canonical snapshot instant.
+```
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- A/B Test Results widget title
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One experiment and variation row at its latest in-range snapshot.
+
+**Join and identity keys**
+
+- Organization, store scope, and identical half-open UTC date window
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Uses the exact metric keys and source filter declared by the composition query.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Uses the selected UTC half-open window until store timezone support lands.
+
+**Currency.** Inherited from constituent metrics; mixed-currency totals are unavailable.
+
+**Freshness.** Inherited from the least-fresh required constituent metric.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the response-bound composite report contract. |
+
+</Accordion>
+
+</AccordionGroup>

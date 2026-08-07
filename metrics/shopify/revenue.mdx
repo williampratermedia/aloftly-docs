@@ -1,0 +1,79 @@
+---
+title: "Order revenue"
+description: "Order-total revenue with compensating cancellation and refund events."
+tag: "Supporting"
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `shopify.revenue` |
+| Source | Shopify |
+| Status | supporting |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+value = order total for creation; -order total for cancellation; -refund total for each refund. Period value = SUM(value).
+```
+
+### Built from
+
+- `Order.totalPriceSet.shopMoney.amount`
+- `Order.cancelledAt`
+- `Refund.totalRefundedSet or refund transactions`
+
+## Known caveats
+
+- Legacy order-lifecycle series; use Shopify total sales for store sales conclusions.
+
+## Where this appears
+
+- Stores page revenue
+- KPI fallback when Shopify analytics is unavailable
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+event; entity: order; same-day fold: sum; additivity: additive.
+
+**Join and identity keys**
+
+- orderId
+- eventType
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated request.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- ShopifyQL sales values are used as reported; no extra paid-order filter is added by Aloftly.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** ShopifyQL groups by the shop reporting date; Aloftly stores that date as a UTC-midnight label. Order lifecycle events retain their provider timestamp.
+
+**Currency.** Currency values use Shopify shop-money amounts. Aloftly does not perform foreign-exchange conversion; mixed-currency all-store totals must not be interpreted as converted currency.
+
+**Freshness.** Webhook and cursor sync.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered Shopify authority and metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

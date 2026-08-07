@@ -1,0 +1,74 @@
+---
+title: "Product orders"
+description: "Distinct Shopify orders containing a grouped product in the selected window."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.top_products.orders` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+COUNT(DISTINCT COALESCE(NULLIF(dimensions->>'orderToken', ''), NULLIF(dimensions->>'orderId', '')))
+```
+
+### Built from
+
+- `Order identity token`
+- `Line item product identity`
+
+## Known caveats
+
+- An order containing multiple lines for the grouped product still counts once.
+
+## Where this appears
+
+- Top Products table
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One grouped product over the selected half-open date window.
+
+**Join and identity keys**
+
+- productTitle, then sku, variantTitle, variantId fallback
+- orderToken or legacy orderId
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Paid-state is not re-filtered at read time; the product publisher owns inclusion.
+- Organization/store/date predicates apply.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Uses the order line recorded_at timestamp and the selected UTC half-open window.
+
+**Currency.** Not applicable.
+
+**Freshness.** Refreshes after the daily product bulk publication or a deliberate history run.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-07-21 | Moved product facts to the complete bulk line-item pipeline. |
+
+</Accordion>
+
+</AccordionGroup>

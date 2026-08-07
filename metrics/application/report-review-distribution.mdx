@@ -1,0 +1,67 @@
+---
+title: "Review Distribution"
+description: "Judge.me review counts by star rating with the derived average rating."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.report.review_distribution` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```text
+Combines certified star buckets and their weighted average over the selected period.
+```
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Review Distribution widget title
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One five-bucket distribution for one store scope and selected date window.
+
+**Join and identity keys**
+
+- Organization, store scope, and identical half-open UTC date window
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Uses the exact metric keys and source filter declared by the composition query.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Uses the selected UTC half-open window until store timezone support lands.
+
+**Currency.** Inherited from constituent metrics; mixed-currency totals are unavailable.
+
+**Freshness.** Inherited from the least-fresh required constituent metric.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the response-bound composite report contract. |
+
+</Accordion>
+
+</AccordionGroup>

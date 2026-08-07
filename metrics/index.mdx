@@ -1,0 +1,173 @@
+---
+title: "Metric Library"
+description: "Canonical definitions, formulas, grain, filters, and caveats for every metric Aloftly displays."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+This library is the canonical contract for metrics displayed by Aloftly. Each page explains what the metric means, how it is calculated, where it comes from, its grain and filters, and the conditions under which it can be unavailable.
+
+These definitions are generated from the same certified semantic catalog that Aloftly's query and AI layers use, so a metric means the same thing everywhere it appears.
+
+## Shared query rules
+
+- Tenant identity is resolved server-side. Browser-supplied organization identity is never trusted.
+- Date filters use half-open windows: values at the start are included and values at the end are excluded.
+- A missing value is not rewritten as zero. Ratios return unavailable when their required denominator or coverage is missing.
+- Shopify is the primary authority for commerce and store conversion. GA4 is the primary authority for web traffic and page analytics.
+- Aloftly does not currently perform foreign-exchange conversion. Cross-store currency totals require the stores to share a currency.
+- No metric should claim paid-only or bot-excluded behavior unless its page explicitly names that filter.
+
+## Shopify
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Added to cart](/metrics/shopify/add-to-cart-count) | `shopify.add_to_cart_count` | active | Sessions with an add-to-cart event from the Shopify-admin funnel. |
+| [Average order value](/metrics/shopify/aov) | `shopify.aov` | active | Shopify-admin AOV from gross sales plus discounts divided by sales-report orders. |
+| [Conversion rate](/metrics/shopify/conversion-rate) | `shopify.conversion_rate` | active | Shopify-admin conversion rate from converted sessions divided by sessions. |
+| [Conversion-rate change](/metrics/shopify/stores-conversion-rate-change) | `app.stores.conversion_rate_change` | active | Percentage change in aligned Shopify conversion rate versus the preceding period. |
+| [Converted sessions](/metrics/shopify/converted-sessions) | `shopify.converted_sessions` | active | Sessions that converted in the Shopify-admin funnel. |
+| [Discounts](/metrics/shopify/discounts) | `shopify.discounts` | active | Shopify-admin discounts stored as reported negative values. |
+| [Gross sales](/metrics/shopify/gross-sales) | `shopify.gross_sales` | active | Shopify-admin gross sales before discounts, returns, shipping, and taxes. |
+| [Net sales](/metrics/shopify/net-sales) | `shopify.net_sales` | active | Shopify-admin net sales after discounts and returns. |
+| [New-customer events](/metrics/shopify/new-customers) | `shopify.new_customers` | supporting | Legacy per-order customer marker. |
+| [Order revenue](/metrics/shopify/revenue) | `shopify.revenue` | supporting | Order-total revenue with compensating cancellation and refund events. |
+| [Orders](/metrics/shopify/orders) | `shopify.orders` | active | Order-count events with compensating cancellations. |
+| [Product](/metrics/shopify/top-products-product) | `app.top_products.product` | active | The product name Shopify reported for this row. |
+| [Product revenue](/metrics/shopify/product-revenue) | `shopify.product_revenue` | active | Order-time line-item revenue published by the fenced Shopify bulk pipeline. |
+| [Reached checkout](/metrics/shopify/checkout-started-count) | `shopify.checkout_started_count` | active | Sessions reaching checkout reconstructed from ShopifyQL funnel rates. |
+| [Refunds](/metrics/shopify/refunds) | `shopify.refunds` | supporting | Refund amount from Shopify order lifecycle. |
+| [Returns](/metrics/shopify/returns) | `shopify.returns` | active | Shopify-admin returns stored as reported negative values. |
+| [Revenue change](/metrics/shopify/stores-revenue-change) | `app.stores.revenue_change` | active | Percentage change in Shopify revenue versus the immediately preceding equal-length period. |
+| [Sales by channel](/metrics/shopify/sales-by-channel) | `shopify.sales_by_channel` | active | Shopify-admin total sales by sales channel. |
+| [Sales-report orders](/metrics/shopify/sales-orders) | `shopify.sales_orders` | active | Shopify-admin sales-report order count used by the admin AOV formula. |
+| [Sessions](/metrics/shopify/sessions) | `shopify.sessions` | active | Shopify-admin Online Store sessions. |
+| [Shipping charges](/metrics/shopify/shipping-charges) | `shopify.shipping_charges` | active | Shopify-admin shipping charges. |
+| [Taxes](/metrics/shopify/taxes) | `shopify.taxes` | active | Shopify-admin taxes. |
+| [Total sales](/metrics/shopify/total-sales) | `shopify.total_sales` | active | Shopify-admin total sales: gross plus discounts, returns, shipping, and taxes. |
+
+## Google Analytics 4
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Bounce rate](/metrics/ga4/bounce-rate) | `ga4.bounce_rate` | active | GA4 bounce rate derived from sessions and engaged sessions. |
+| [Engaged sessions](/metrics/ga4/engaged-sessions) | `ga4.engaged_sessions` | supporting | GA4 engaged sessions used to derive session-weighted bounce rate. |
+| [Page sessions](/metrics/ga4/page-sessions) | `ga4.page_sessions` | active | Canonicalized GA4 sessions per page and day. |
+| [Page views](/metrics/ga4/page-views) | `ga4.page_views` | active | GA4 page views by acquisition and device segment. |
+| [Page views](/metrics/ga4/page-engagement) | `ga4.page_engagement` | active | Canonicalized GA4 page views per page and day. |
+| [Sessions](/metrics/ga4/sessions) | `ga4.sessions` | active | GA4 sessions by acquisition and device segment. |
+| [Traffic source sessions](/metrics/ga4/traffic-source) | `ga4.traffic_source` | supporting | GA4 sessions retained as a source-breakdown series. |
+
+## Microsoft Clarity
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Dead clicks](/metrics/clarity/dead-clicks) | `clarity.dead_clicks` | active | Clarity dead-click count. |
+| [Engagement time](/metrics/clarity/engagement-time) | `clarity.engagement_time` | active | Average active engagement time in seconds. |
+| [Page dead-click rate](/metrics/clarity/page-dead-clicks) | `clarity.page_dead_clicks` | active | Clarity session rate with dead clicks per canonical page. |
+| [Page rage-click rate](/metrics/clarity/page-rage-clicks) | `clarity.page_rage_clicks` | active | Clarity session rate with rage clicks per canonical page. |
+| [Page scroll depth](/metrics/clarity/page-scroll-depth) | `clarity.page_scroll_depth` | active | Clarity average scroll depth per canonical page. |
+| [Page sessions](/metrics/clarity/page-sessions) | `clarity.page_sessions` | active | Clarity sessions per canonical page. |
+| [Rage clicks](/metrics/clarity/rage-clicks) | `clarity.rage_clicks` | active | Clarity rage-click count. |
+| [Scroll depth](/metrics/clarity/scroll-depth) | `clarity.scroll_depth` | active | Average Clarity scroll depth. |
+| [Sessions](/metrics/clarity/session-count) | `clarity.session_count` | active | Clarity session count. |
+
+## Intelligems
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Conversion lift](/metrics/intelligems/conversion-lift) | `intelligems.conversion_lift` | active | Variation conversion lift against the control. |
+| [Estimated monthly revenue impact](/metrics/intelligems/current-estimated-monthly-revenue-impact) | `intelligems.current.estimated_monthly_revenue_impact` | active | Intelligems-provided estimated monthly revenue impact for the experiment. |
+| [Experiment lifecycle](/metrics/intelligems/experiment-status) | `intelligems.experiment_status` | supporting | Authenticated experiment lifecycle event. |
+| [Intelligems conversion rate](/metrics/intelligems/current-conversion-rate) | `intelligems.current.conversion_rate` | active | Provider conversion rate for one variation. |
+| [Intelligems conversion uplift](/metrics/intelligems/current-conversion-uplift) | `intelligems.current.conversion_uplift` | active | Provider-supplied conversion uplift for one variation. |
+| [Intelligems net revenue](/metrics/intelligems/current-net-revenue) | `intelligems.current.net_revenue` | active | Provider net revenue for one variation. |
+| [Intelligems orders](/metrics/intelligems/current-orders) | `intelligems.current.orders` | active | Orders attributed to one provider variation. |
+| [Intelligems revenue per order](/metrics/intelligems/current-revenue-per-order) | `intelligems.current.revenue_per_order` | active | Provider net revenue per order for one variation. |
+| [Intelligems revenue per visitor](/metrics/intelligems/current-revenue-per-visitor) | `intelligems.current.revenue_per_visitor` | active | Provider net revenue per visitor for one variation. |
+| [Intelligems visitors](/metrics/intelligems/current-visitors) | `intelligems.current.visitors` | active | Visitors assigned to one provider variation. |
+| [Probability to be best](/metrics/intelligems/current-probability-to-be-best) | `intelligems.current.probability_to_be_best` | active | Provider probability that one variation is the best choice. |
+| [Probability to beat baseline](/metrics/intelligems/current-probability-to-beat-baseline) | `intelligems.current.probability_to_beat_baseline` | active | Provider probability that one variation beats the baseline. |
+| [Probability to win](/metrics/intelligems/probability-to-beat-control) | `intelligems.probability_to_beat_control` | active | Provider probability that a variation beats the control. |
+| [Revenue impact](/metrics/intelligems/revenue-impact) | `intelligems.revenue_impact` | active | Provider estimated monthly revenue impact for an experiment. |
+| [Revenue per visitor](/metrics/intelligems/revenue-per-visitor) | `intelligems.revenue_per_visitor` | active | Variation net revenue per visitor. |
+
+## Gorgias
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Average first response time](/metrics/gorgias/gorgias-first-response-time) | `app.gorgias.first_response_time` | planned | Reserved dashboard field for average first response time. Aloftly does not currently source this metric. |
+| [CSAT (top-box %)](/metrics/gorgias/csat-pct) | `gorgias.csat_pct` | active | Share of Gorgias CSAT scores that are 4 or 5. |
+| [CSAT score](/metrics/gorgias/csat-score) | `gorgias.csat_score` | active | Raw 1-5 Gorgias satisfaction survey score. |
+| [Support tickets](/metrics/gorgias/ticket) | `gorgias.ticket` | active | One count contribution per Gorgias ticket. |
+
+## KnoCommerce
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Attribution responses](/metrics/knocommerce/attribution) | `knocommerce.attribution` | active | One count contribution per attribution answer. |
+| [NPS answer](/metrics/knocommerce/nps-score) | `knocommerce.nps_score` | active | Raw 0-10 NPS answer. |
+| [Survey responses](/metrics/knocommerce/survey-response) | `knocommerce.survey_response` | active | One count contribution per KnoCommerce survey response. |
+
+## Judge.me
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [1-star reviews](/metrics/judgeme/review-rating-1) | `judgeme.review_rating_1` | active | Count of 1-star Judge.me reviews. |
+| [2-star reviews](/metrics/judgeme/review-rating-2) | `judgeme.review_rating_2` | active | Count of 2-star Judge.me reviews. |
+| [3-star reviews](/metrics/judgeme/review-rating-3) | `judgeme.review_rating_3` | active | Count of 3-star Judge.me reviews. |
+| [4-star reviews](/metrics/judgeme/review-rating-4) | `judgeme.review_rating_4` | active | Count of 4-star Judge.me reviews. |
+| [5-star reviews](/metrics/judgeme/review-rating-5) | `judgeme.review_rating_5` | active | Count of 5-star Judge.me reviews. |
+| [Average review rating](/metrics/judgeme/average-rating) | `judgeme.average_rating` | active | Cube average of raw Judge.me ratings. |
+| [Review rating](/metrics/judgeme/review-rating) | `judgeme.review_rating` | active | Raw 1-5 Judge.me review rating. |
+| [Review volume](/metrics/judgeme/review-volume) | `judgeme.review_volume` | active | One count contribution per Judge.me review. |
+
+## Experiment OS
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [Average-order-value uplift](/metrics/experiment-os/aov-uplift) | `experiment_os.aov_uplift` | active | Average-order-value uplift calculated from the saved Experiment OS result inputs. |
+| [Control average order value](/metrics/experiment-os/control-aov) | `experiment_os.control_aov` | active | Control average order value calculated from the saved Experiment OS result inputs. |
+| [Control conversion rate](/metrics/experiment-os/control-cvr) | `experiment_os.control_cvr` | active | Control conversion rate calculated from the saved Experiment OS result inputs. |
+| [Control orders](/metrics/experiment-os/control-orders) | `experiment_os.control_orders` | active | Order count for the control experience. |
+| [Control revenue per visitor](/metrics/experiment-os/control-rpv) | `experiment_os.control_rpv` | active | Revenue per visitor for the control experience. |
+| [Control visitors](/metrics/experiment-os/control-visitors) | `experiment_os.control_visitors` | active | Visitor count for the control experience. |
+| [Conversion-rate uplift](/metrics/experiment-os/cvr-uplift) | `experiment_os.cvr_uplift` | active | Conversion-rate uplift calculated from the saved Experiment OS result inputs. |
+| [Experiment certainty](/metrics/experiment-os/certainty) | `experiment_os.certainty` | active | A saved 0-1 probability associated with the experiment result. |
+| [Experiment runtime](/metrics/experiment-os/runtime-days) | `experiment_os.runtime_days` | active | Experiment runtime calculated from the saved Experiment OS result inputs. |
+| [Monthly incremental revenue](/metrics/experiment-os/monthly-incremental-revenue) | `experiment_os.monthly_incremental_revenue` | active | Monthly incremental revenue calculated from the saved Experiment OS result inputs. |
+| [Projected 90-day incremental revenue](/metrics/experiment-os/projected-90d-incremental-revenue) | `experiment_os.projected_90d_incremental_revenue` | active | Projected 90-day incremental revenue calculated from the saved Experiment OS result inputs. |
+| [Revenue-per-visitor uplift](/metrics/experiment-os/rpv-uplift) | `experiment_os.rpv_uplift` | active | Revenue-per-visitor uplift calculated from the saved Experiment OS result inputs. |
+| [Test incremental revenue](/metrics/experiment-os/test-incremental-revenue) | `experiment_os.test_incremental_revenue` | active | Test incremental revenue calculated from the saved Experiment OS result inputs. |
+| [Variation average order value](/metrics/experiment-os/variation-aov) | `experiment_os.variation_aov` | active | Variation average order value calculated from the saved Experiment OS result inputs. |
+| [Variation conversion rate](/metrics/experiment-os/variation-cvr) | `experiment_os.variation_cvr` | active | Variation conversion rate calculated from the saved Experiment OS result inputs. |
+| [Variation orders](/metrics/experiment-os/variation-orders) | `experiment_os.variation_orders` | active | Order count for the variation experience. |
+| [Variation revenue per visitor](/metrics/experiment-os/variation-rpv) | `experiment_os.variation_rpv` | active | Revenue per visitor for the variation experience. |
+| [Variation visitors](/metrics/experiment-os/variation-visitors) | `experiment_os.variation_visitors` | active | Visitor count for the variation experience. |
+
+## Aloftly calculations
+
+| Metric | Key | Status | Definition |
+| --- | --- | --- | --- |
+| [A/B Test Results](/metrics/application/report-ab-test-results) | `app.report.ab_test_results` | active | The latest Intelligems result snapshot for each experiment and variation in scope. |
+| [Checkout Funnel](/metrics/application/report-checkout-funnel) | `app.report.checkout_funnel` | active | The Shopify session funnel from visits through conversion, with stage-level drop-off. |
+| [Checkout stage drop-off](/metrics/application/checkout-funnel-drop-off) | `app.checkout_funnel.drop_off` | active | The share of visitors at one Shopify funnel stage who did not reach the next stage. |
+| [Connected integrations](/metrics/application/stores-integration-count) | `app.stores.integration_count` | active | Integration connection records currently configured for one store. |
+| [Experiment count](/metrics/application/stores-experiment-count) | `app.stores.experiment_count` | active | Aloftly experiments assigned to one store. |
+| [Idea count](/metrics/application/stores-idea-count) | `app.stores.idea_count` | active | Aloftly test ideas assigned to one store. |
+| [Net test revenue](/metrics/application/stores-net-test-revenue) | `app.stores.net_test_revenue` | active | Sum of eligible Experiment OS test incremental revenue, including wins and losses. |
+| [Page Click Behavior](/metrics/application/report-page-click-behavior) | `app.report.page_click_behavior` | active | Page-level traffic and click-behavior evidence from the explicitly selected source branch. |
+| [Per-store breakdown](/metrics/application/report-stores-breakdown) | `app.report.stores_breakdown` | active | Store-level commerce, traffic, experimentation, and integration summaries for one selected period. |
+| [Product orders](/metrics/application/top-products-orders) | `app.top_products.orders` | active | Distinct Shopify orders containing a grouped product in the selected window. |
+| [Product revenue per order](/metrics/application/top-products-revenue-per-order) | `app.top_products.revenue_per_order` | active | Product revenue divided by distinct orders containing that product. |
+| [Product units](/metrics/application/top-products-units) | `app.top_products.units` | active | Total quantity sold for a grouped product in the selected window. |
+| [Research count](/metrics/application/stores-research-count) | `app.stores.research_count` | active | Aloftly research records assigned to one store. |
+| [Revenue by Channel](/metrics/application/report-revenue-by-channel) | `app.report.revenue_by_channel` | active | Shopify sales grouped by the channel attributed by Shopify. |
+| [Revenue trend](/metrics/application/report-stores-revenue-trend) | `app.report.stores_revenue_trend` | active | Daily Shopify revenue series for each store in the selected period. |
+| [Review Distribution](/metrics/application/report-review-distribution) | `app.report.review_distribution` | active | Judge.me review counts by star rating with the derived average rating. |
+| [Sessions & Conversions](/metrics/application/report-sessions-conversions) | `app.report.sessions_conversions` | active | A daily Shopify sessions and conversion-rate trend over the selected period. |
+| [Site Behavior by Device](/metrics/application/report-clarity-site-behavior) | `app.report.clarity_site_behavior` | active | Clarity session and interaction metrics grouped by device. |
+| [Survey Responses](/metrics/application/report-survey-responses) | `app.report.survey_responses` | active | KnoCommerce response volume, answer evidence, and supported score summaries. |
+| [Ticket Volume & CSAT](/metrics/application/report-ticket-volume-csat) | `app.report.ticket_volume_csat` | active | Gorgias ticket volume and supported customer-satisfaction metrics over time. |
+| [Top Products](/metrics/application/report-top-products) | `app.report.top_products` | active | A Shopify product-performance report containing product revenue, distinct orders, units, and revenue per order. |
+| [Total stores](/metrics/application/stores-total) | `app.stores.total` | active | Connected store records included in the organization-wide Stores view. |

@@ -101,11 +101,13 @@ Pages exist only in this map until written; only shipped pages go in `docs.json`
 | ⬜ | `account/team` | Inviting members, roles. |
 | ⬜ | `account/billing` | Plans, limits, managing billing. |
 
-### Tab: Metric library (110 pages — blocked on generator work)
+### Tab: Metric library (110 pages)
 
 | Status | Page | Scope |
 | --- | --- | --- |
-| ⬜ | `metrics/index` + 109 metric pages | Canonical definitions, formulas, grain, filters, and caveats for every metric Aloftly displays. Source: `docs/metrics/` in the app repo, generated from `src/lib/metrics/metric-library.ts`. **Do not hand-port** — see [specs/2026-08-06-metric-library-port.md](specs/2026-08-06-metric-library-port.md) for the target shape and [handoff-metric-library-generator.md](handoff-metric-library-generator.md) for the app-repo work order. |
+| ✅ | `metrics/index` + 109 metric pages | Canonical definitions, formulas, grain, filters, and caveats for every metric Aloftly displays. Shipped 2026-08-07 from `docs/metrics/` at app-repo commit `848869e9`. |
+
+**These pages are generated — never hand-edit them.** They were produced by a converter implementing [specs/2026-08-06-metric-library-port.md](specs/2026-08-06-metric-library-port.md); the converter lives at `internal/scripts/convert-metrics.js`. To refresh after the app repo's metric library changes, re-run it (see that spec). The longer-term goal remains folding this transform into the app repo's own generator — see [handoff-metric-library-generator.md](handoff-metric-library-generator.md).
 
 ### Tab: Developers (create the tab only when the first page ships)
 

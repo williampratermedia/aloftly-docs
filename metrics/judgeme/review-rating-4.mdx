@@ -1,0 +1,72 @@
+---
+title: "4-star reviews"
+description: "Count of 4-star Judge.me reviews."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `judgeme.review_rating_4` |
+| Source | Judge.me |
+| Status | active |
+| Type | derived |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+count(judgeme.review_rating = 4)
+```
+
+### Built from
+
+- `judgeme.review_rating`
+
+## Known caveats
+
+- Derived bucket.
+
+## Where this appears
+
+- Review Distribution widget
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+derived_period; entity: review; same-day fold: sum; additivity: non_additive.
+
+**Join and identity keys:** none.
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated connection.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- No additional published-state filter is applied beyond the Judge.me reviews endpoint response.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Provider created_at timestamps are stored as instants and queried through half-open UTC windows.
+
+**Currency.** Not applicable.
+
+**Freshness.** Computed by Cube at read time.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered review metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

@@ -1,0 +1,72 @@
+---
+title: "Product revenue per order"
+description: "Product revenue divided by distinct orders containing that product."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.top_products.revenue_per_order` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+SUM(shopify.product_revenue) / NULLIF(app.top_products.orders, 0)
+```
+
+### Built from
+
+- `Order-time line-item gross total`
+- `Order identity token`
+
+## Known caveats
+
+- This is not product AOV and does not use sessions or GA4.
+
+## Where this appears
+
+- Top Products table
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One grouped product over the selected half-open date window.
+
+**Join and identity keys**
+
+- The same grouped product key and date window for both operands
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization/store/date predicates apply.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Both operands use the same selected window.
+
+**Currency.** Uses Shopify shop currency; no FX conversion.
+
+**Freshness.** Same as Shopify product revenue.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the display calculation as a named metric contract. |
+
+</Accordion>
+
+</AccordionGroup>

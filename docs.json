@@ -10,18 +10,197 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Get started",
-        "pages": [
-          "index",
-          "quickstart"
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/intelligems"
+            ]
+          }
         ]
       },
       {
-        "group": "Integrations",
-        "pages": [
-          "integrations/intelligems"
+        "tab": "Metric library",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "metrics/index"
+            ]
+          },
+          {
+            "group": "Shopify",
+            "expanded": false,
+            "pages": [
+              "metrics/shopify/add-to-cart-count",
+              "metrics/shopify/aov",
+              "metrics/shopify/conversion-rate",
+              "metrics/shopify/stores-conversion-rate-change",
+              "metrics/shopify/converted-sessions",
+              "metrics/shopify/discounts",
+              "metrics/shopify/gross-sales",
+              "metrics/shopify/net-sales",
+              "metrics/shopify/new-customers",
+              "metrics/shopify/revenue",
+              "metrics/shopify/orders",
+              "metrics/shopify/top-products-product",
+              "metrics/shopify/product-revenue",
+              "metrics/shopify/checkout-started-count",
+              "metrics/shopify/refunds",
+              "metrics/shopify/returns",
+              "metrics/shopify/stores-revenue-change",
+              "metrics/shopify/sales-by-channel",
+              "metrics/shopify/sales-orders",
+              "metrics/shopify/sessions",
+              "metrics/shopify/shipping-charges",
+              "metrics/shopify/taxes",
+              "metrics/shopify/total-sales"
+            ]
+          },
+          {
+            "group": "Google Analytics 4",
+            "expanded": false,
+            "pages": [
+              "metrics/ga4/bounce-rate",
+              "metrics/ga4/engaged-sessions",
+              "metrics/ga4/page-sessions",
+              "metrics/ga4/page-engagement",
+              "metrics/ga4/page-views",
+              "metrics/ga4/sessions",
+              "metrics/ga4/traffic-source"
+            ]
+          },
+          {
+            "group": "Microsoft Clarity",
+            "expanded": false,
+            "pages": [
+              "metrics/clarity/dead-clicks",
+              "metrics/clarity/engagement-time",
+              "metrics/clarity/page-dead-clicks",
+              "metrics/clarity/page-rage-clicks",
+              "metrics/clarity/page-scroll-depth",
+              "metrics/clarity/page-sessions",
+              "metrics/clarity/rage-clicks",
+              "metrics/clarity/scroll-depth",
+              "metrics/clarity/session-count"
+            ]
+          },
+          {
+            "group": "Intelligems",
+            "expanded": false,
+            "pages": [
+              "metrics/intelligems/conversion-lift",
+              "metrics/intelligems/current-estimated-monthly-revenue-impact",
+              "metrics/intelligems/experiment-status",
+              "metrics/intelligems/current-conversion-rate",
+              "metrics/intelligems/current-conversion-uplift",
+              "metrics/intelligems/current-net-revenue",
+              "metrics/intelligems/current-orders",
+              "metrics/intelligems/current-revenue-per-order",
+              "metrics/intelligems/current-revenue-per-visitor",
+              "metrics/intelligems/current-visitors",
+              "metrics/intelligems/current-probability-to-be-best",
+              "metrics/intelligems/current-probability-to-beat-baseline",
+              "metrics/intelligems/probability-to-beat-control",
+              "metrics/intelligems/revenue-impact",
+              "metrics/intelligems/revenue-per-visitor"
+            ]
+          },
+          {
+            "group": "Gorgias",
+            "expanded": false,
+            "pages": [
+              "metrics/gorgias/gorgias-first-response-time",
+              "metrics/gorgias/csat-pct",
+              "metrics/gorgias/csat-score",
+              "metrics/gorgias/ticket"
+            ]
+          },
+          {
+            "group": "KnoCommerce",
+            "expanded": false,
+            "pages": [
+              "metrics/knocommerce/attribution",
+              "metrics/knocommerce/nps-score",
+              "metrics/knocommerce/survey-response"
+            ]
+          },
+          {
+            "group": "Judge.me",
+            "expanded": false,
+            "pages": [
+              "metrics/judgeme/review-rating-1",
+              "metrics/judgeme/review-rating-2",
+              "metrics/judgeme/review-rating-3",
+              "metrics/judgeme/review-rating-4",
+              "metrics/judgeme/review-rating-5",
+              "metrics/judgeme/average-rating",
+              "metrics/judgeme/review-rating",
+              "metrics/judgeme/review-volume"
+            ]
+          },
+          {
+            "group": "Experiment OS",
+            "expanded": false,
+            "pages": [
+              "metrics/experiment-os/aov-uplift",
+              "metrics/experiment-os/control-aov",
+              "metrics/experiment-os/control-cvr",
+              "metrics/experiment-os/control-orders",
+              "metrics/experiment-os/control-rpv",
+              "metrics/experiment-os/control-visitors",
+              "metrics/experiment-os/cvr-uplift",
+              "metrics/experiment-os/certainty",
+              "metrics/experiment-os/runtime-days",
+              "metrics/experiment-os/monthly-incremental-revenue",
+              "metrics/experiment-os/projected-90d-incremental-revenue",
+              "metrics/experiment-os/rpv-uplift",
+              "metrics/experiment-os/test-incremental-revenue",
+              "metrics/experiment-os/variation-aov",
+              "metrics/experiment-os/variation-cvr",
+              "metrics/experiment-os/variation-orders",
+              "metrics/experiment-os/variation-rpv",
+              "metrics/experiment-os/variation-visitors"
+            ]
+          },
+          {
+            "group": "Aloftly calculations",
+            "expanded": false,
+            "pages": [
+              "metrics/application/report-ab-test-results",
+              "metrics/application/report-checkout-funnel",
+              "metrics/application/checkout-funnel-drop-off",
+              "metrics/application/stores-integration-count",
+              "metrics/application/stores-experiment-count",
+              "metrics/application/stores-idea-count",
+              "metrics/application/stores-net-test-revenue",
+              "metrics/application/report-page-click-behavior",
+              "metrics/application/report-stores-breakdown",
+              "metrics/application/top-products-orders",
+              "metrics/application/top-products-revenue-per-order",
+              "metrics/application/top-products-units",
+              "metrics/application/stores-research-count",
+              "metrics/application/report-revenue-by-channel",
+              "metrics/application/report-stores-revenue-trend",
+              "metrics/application/report-review-distribution",
+              "metrics/application/report-sessions-conversions",
+              "metrics/application/report-clarity-site-behavior",
+              "metrics/application/report-survey-responses",
+              "metrics/application/report-ticket-volume-csat",
+              "metrics/application/report-top-products",
+              "metrics/application/stores-total"
+            ]
+          }
         ]
       }
     ]

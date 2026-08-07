@@ -1,0 +1,74 @@
+---
+title: "Conversion-rate change"
+description: "Percentage change in aligned Shopify conversion rate versus the preceding period."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.stores.conversion_rate_change` |
+| Source | Shopify |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+100 * (primary_conversion_rate - comparison_conversion_rate) / NULLIF(comparison_conversion_rate, 0).
+```
+
+### Built from
+
+- `shopify.sessions`
+- `shopify.converted_sessions`
+
+## Known caveats
+
+None.
+
+## Where this appears
+
+- Per-store breakdown table
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One store over aligned primary and comparison windows.
+
+**Join and identity keys**
+
+- Organization id
+- Store id
+- Exact UTC day coverage in each period
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Unavailable when either rate has misaligned operands or the comparison rate is zero.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Both periods use half-open UTC windows.
+
+**Currency.** Not applicable.
+
+**Freshness.** Inherited from the least-fresh Shopify session operand.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the Stores conversion-rate-change receipt contract. |
+
+</Accordion>
+
+</AccordionGroup>

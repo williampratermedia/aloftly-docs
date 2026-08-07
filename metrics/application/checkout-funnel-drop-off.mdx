@@ -1,0 +1,72 @@
+---
+title: "Checkout stage drop-off"
+description: "The share of visitors at one Shopify funnel stage who did not reach the next stage."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.checkout_funnel.drop_off` |
+| Source | Aloftly |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+100 * (previous_stage - current_stage) / NULLIF(previous_stage, 0)
+```
+
+### Built from
+
+- `ShopifyQL funnel counts`
+
+## Known caveats
+
+- Returns zero when the previous stage is zero; it does not infer missing stages.
+
+## Where this appears
+
+- Checkout Funnel widget
+- Automated checkout-funnel checks
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One transition between adjacent funnel stages over one selected period.
+
+**Join and identity keys**
+
+- Store and identical date window
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- All stages must come from the Shopify funnel dataset.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** All stage inputs use the same Shopify reporting dates.
+
+**Currency.** Not applicable.
+
+**Freshness.** Same as Shopify daily analytics.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound funnel evidence to the certified Shopify commerce dataset. |
+
+</Accordion>
+
+</AccordionGroup>

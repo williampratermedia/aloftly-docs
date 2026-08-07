@@ -1,0 +1,76 @@
+---
+title: "Support tickets"
+description: "One count contribution per Gorgias ticket."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `gorgias.ticket` |
+| Source | Gorgias |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = 1 per unique Gorgias ticket. Ticket volume = SUM(value).
+```
+
+### Built from
+
+- `Ticket.id`
+- `Ticket.created_datetime`
+
+## Known caveats
+
+- Ticket text is never included in AI aggregate context.
+
+## Where this appears
+
+- Ticket Volume and CSAT widget
+- AI support corroboration
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+event; entity: ticket; same-day fold: sum; additivity: additive.
+
+**Join and identity keys**
+
+- ticketId
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated connection.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- No channel or ticket-status filter is applied unless the requesting surface explicitly adds one.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Provider event timestamps are stored as instants and grouped into UTC date windows by current dashboard reads.
+
+**Currency.** Not applicable.
+
+**Freshness.** Webhook and daily backfill.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered support metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

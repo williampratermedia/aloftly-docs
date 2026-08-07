@@ -1,0 +1,75 @@
+---
+title: "Attribution responses"
+description: "One count contribution per attribution answer."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `knocommerce.attribution` |
+| Source | KnoCommerce |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = 1 per attribution answer; attributionChannel is retained as the grouping dimension.
+```
+
+### Built from
+
+- `Question.answer_value or Response.attribution_channel`
+
+## Known caveats
+
+- Attribution answer values are not AI-visible by default.
+
+## Where this appears
+
+- Metric catalog and attribution breakdowns
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+event; entity: survey_response; same-day fold: sum; additivity: additive.
+
+**Join and identity keys**
+
+- responseId
+- questionType
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated connection.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- Raw answer text is excluded from aggregate AI evidence.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Provider created_at timestamps are stored as instants and queried through half-open UTC windows.
+
+**Currency.** Not applicable.
+
+**Freshness.** Daily sync.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered survey metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

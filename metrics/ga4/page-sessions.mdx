@@ -1,0 +1,80 @@
+---
+title: "Page sessions"
+description: "Canonicalized GA4 sessions per page and day."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `ga4.page_sessions` |
+| Source | Google Analytics 4 |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = SUM(sessions) after pagePath aliases normalize to one canonical page_url per day.
+```
+
+### Built from
+
+- `GA4 Data API sessions`
+- `pagePath`
+- `date`
+
+## Known caveats
+
+- Titles live in the page-label layer, not metric dimensions.
+- Coverage is limited to the top 75 pages per property day.
+- Page sessions are not additive across pages because one session can visit more than one page.
+
+## Where this appears
+
+- Page Click Maps traffic denominator
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+page_daily; entity: page; same-day fold: sum; additivity: semi_additive.
+
+**Join and identity keys**
+
+- propertyId
+- snapshotDate
+- page_url
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, and GA4 property are resolved server-side.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- Site reports preserve acquisition/device segments; page reports retain the top 75 pages per day.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** GA4 report dates are property-calendar dates normalized to UTC-midnight labels. They are not rebucketed in the browser timezone.
+
+**Currency.** Not applicable.
+
+**Freshness.** Daily scheduled sync for top pages per day.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered GA4 traffic and page contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>

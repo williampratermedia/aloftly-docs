@@ -1,0 +1,76 @@
+---
+title: "Variation conversion rate"
+description: "Variation conversion rate calculated from the saved Experiment OS result inputs."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `experiment_os.variation_cvr` |
+| Source | Experiment OS |
+| Status | active |
+| Type | application |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+variation_conversions / NULLIF(variation_users, 0)
+```
+
+### Built from
+
+- `Manual inputs or approved Intelligems projection`
+
+## Known caveats
+
+- NULLIF guards make unavailable or zero-denominator calculations return null rather than a fabricated zero.
+- When populated from Intelligems, the legacy conversions columns contain orders, so this is orders divided by visitors and the UI labels it as an order rate.
+
+## Where this appears
+
+- Experiment detail Results tab
+- Experiment OS ROI summaries where applicable
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One Aloftly experiment record.
+
+**Join and identity keys**
+
+- org_id
+- store_id
+- experiment id
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Tenant scope is enforced by the experiment row.
+- No cross-experiment aggregation is implied by this field.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Runtime uses end_date - start_date as calendar dates.
+
+**Currency.** Not applicable.
+
+**Freshness.** Recomputed by PostgreSQL whenever the saved inputs change.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-07-02 | Established generated Experiment OS result formulas. |
+
+</Accordion>
+
+</AccordionGroup>

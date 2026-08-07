@@ -1,0 +1,74 @@
+---
+title: "Product"
+description: "The product name Shopify reported for this row."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `app.top_products.product` |
+| Source | Shopify |
+| Status | active |
+| Type | source |
+| Semantic version | Application calculation |
+| Catalog visibility | Supporting or fixed-surface only |
+
+## How it's calculated
+
+```sql
+COALESCE(productTitle, sku, variantTitle, variantId, 'Unknown product')
+```
+
+### Built from
+
+- `Product title`
+- `SKU`
+- `Variant title`
+- `Variant id`
+
+## Known caveats
+
+- Deleted or custom products can retain only a line-item title.
+
+## Where this appears
+
+- Top Products Product column
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+One grouped product label in the returned page.
+
+**Join and identity keys**
+
+- Product title, then SKU, variant title, and variant id fallback
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization/store/date predicates apply.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Uses the same selected window as the report facts.
+
+**Currency.** Not applicable.
+
+**Freshness.** Refreshes with Shopify product facts.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-06 | Registered the grouped product dimension. |
+
+</Accordion>
+
+</AccordionGroup>

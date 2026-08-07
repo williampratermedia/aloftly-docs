@@ -1,0 +1,79 @@
+---
+title: "Revenue impact"
+description: "Provider estimated monthly revenue impact for an experiment."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `intelligems.revenue_impact` |
+| Source | Intelligems |
+| Status | active |
+| Type | source |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+value = estimatedMonthlyRevenueImpact once per current unfiltered experiment snapshot.
+```
+
+### Built from
+
+- `POST analytics estimatedMonthlyRevenueImpact`
+
+## Known caveats
+
+- Canonical scoped POST snapshot; never sum across snapshots.
+- Rows published before currency retention may lack a currency code; the dashboard renders those amounts without a symbol.
+- This provider estimate is not the same calculation as Experiment OS monthly incremental revenue.
+
+## Where this appears
+
+- A/B Test Results widget
+- Experiment OS ROI
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+experiment_snapshot; entity: experiment; same-day fold: sum; additivity: non_additive.
+
+**Join and identity keys**
+
+- sourceLineageId
+- experienceId
+- snapshotDate
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization, store, connection lineage, experiment, and result scope are server-derived.
+- Generic metric publication uses only the unfiltered scope; linked custom-event scopes remain in Experiment OS.
+- Current variation metrics exclude the control variation unless the field describes the experiment as a whole.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** Result snapshots require a verified IANA Intelligems reporting timezone. Provider-local days are stored with their UTC bucket boundaries.
+
+**Currency.** Currency is supplied by the Intelligems result. Aloftly does not convert currencies.
+
+**Freshness.** Hourly scheduled capture while the experiment is relevant.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-30 | Moved current-result metrics to the canonical scoped POST publisher. |
+
+</Accordion>
+
+</AccordionGroup>

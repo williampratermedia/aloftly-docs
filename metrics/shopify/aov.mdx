@@ -1,0 +1,75 @@
+---
+title: "Average order value"
+description: "Shopify-admin AOV from gross sales plus discounts divided by sales-report orders."
+---
+
+{/* Generated file — do not edit by hand. */}
+
+| Contract | Value |
+| --- | --- |
+| Metric key | `shopify.aov` |
+| Source | Shopify |
+| Status | active |
+| Type | derived |
+| Semantic version | 1 |
+| Catalog visibility | Picker-eligible |
+
+## How it's calculated
+
+```text
+(sum(shopify.gross_sales) + sum(shopify.discounts)) / nullif(sum(shopify.sales_orders), 0)
+```
+
+### Built from
+
+- `shopify.gross_sales`
+- `shopify.discounts`
+- `shopify.sales_orders`
+
+## Known caveats
+
+- Ratio of sums; never average daily AOV rows.
+
+## Where this appears
+
+- Overview KPI strip
+- Dashboard builder
+
+<AccordionGroup>
+
+<Accordion title="Grain and identity" icon="ruler">
+
+derived_period; entity: store; same-day fold: sum; additivity: non_additive.
+
+**Join and identity keys:** none.
+
+</Accordion>
+
+<Accordion title="Filters and boundaries" icon="filter">
+
+- Organization and store are resolved from the authenticated request.
+- Reads use a half-open interval: recorded_at >= start and recorded_at &lt; end.
+- ShopifyQL sales values are used as reported; no extra paid-order filter is added by Aloftly.
+
+</Accordion>
+
+<Accordion title="Timezone, currency, and freshness" icon="clock">
+
+**Timezone.** ShopifyQL groups by the shop reporting date; Aloftly stores that date as a UTC-midnight label. Order lifecycle events retain their provider timestamp.
+
+**Currency.** Currency values use Shopify shop-money amounts. Aloftly does not perform foreign-exchange conversion; mixed-currency all-store totals must not be interpreted as converted currency.
+
+**Freshness.** Computed by Cube at read time.
+
+</Accordion>
+
+<Accordion title="Version history" icon="clock-rotate-left">
+
+| Date | Change |
+| --- | --- |
+| 2026-08-03 | Bound the metric to the executable certified semantic release. |
+| 2026-07-27 | Registered Shopify authority and metric contracts in the semantic catalog. |
+
+</Accordion>
+
+</AccordionGroup>
