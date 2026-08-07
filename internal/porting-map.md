@@ -101,6 +101,12 @@ Pages exist only in this map until written; only shipped pages go in `docs.json`
 | ⬜ | `account/team` | Inviting members, roles. |
 | ⬜ | `account/billing` | Plans, limits, managing billing. |
 
+### Tab: Metric library (110 pages — blocked on generator work)
+
+| Status | Page | Scope |
+| --- | --- | --- |
+| ⬜ | `metrics/index` + 109 metric pages | Canonical definitions, formulas, grain, filters, and caveats for every metric Aloftly displays. Source: `docs/metrics/` in the app repo, generated from `src/lib/metrics/metric-library.ts`. **Do not hand-port** — see [specs/2026-08-06-metric-library-port.md](specs/2026-08-06-metric-library-port.md) for the target shape and [handoff-metric-library-generator.md](handoff-metric-library-generator.md) for the app-repo work order. |
+
 ### Tab: Developers (create the tab only when the first page ships)
 
 | Status | Page | Scope |
