@@ -1,0 +1,110 @@
+---
+title: "Metric Receipts"
+description: "A Metric Receipt shows exactly what produced a number on your screen — the store and date range, the inputs, the data coverage, and any reason to treat the value with caution."
+---
+
+Every number Aloftly shows carries a receipt. Hover or tap a metric and you see what actually produced that specific value: the scope and dates it covers, what it was calculated from, how current the underlying data is, and whether anything about it deserves caution.
+
+This exists because a number without provenance is a number you have to take on faith. If you are about to tell a client that conversion rate moved 8%, you should be able to check where that came from in one gesture.
+
+## Receipts and the Metric Library are different things
+
+<CardGroup cols={2}>
+  <Card title="Metric Library" icon="book" href="/metrics">
+    The stable definition. What "Average order value" means in general, how it is calculated, and its caveats — the same for everyone, every time.
+  </Card>
+  <Card title="Metric Receipt" icon="receipt">
+    What happened for *this* number. The store, the exact window, the inputs actually used, and the data coverage behind the value on your screen right now.
+  </Card>
+</CardGroup>
+
+The distinction matters. A definition can tell you how Aloftly normally calculates a metric while the value in front of you came from a narrower window or a source that has not refreshed recently. The receipt is bound to the response that produced the value, so it cannot drift from it.
+
+For the same reason, opening a receipt never triggers a new request. The evidence arrives with the value it explains.
+
+## Opening a receipt
+
+Receipt triggers appear on metric labels, report titles, table headers, and supported table cells.
+
+- **Desktop.** Hover a metric to open its receipt after a brief pause; move away and it closes. Clicking does not pin it open. Keyboard focus opens and holds it, <kbd>Tab</kbd> moves into the panel and then on through the page, and <kbd>Esc</kbd> closes it and returns focus to the metric.
+- **Mobile and touch.** Tap a metric to open the receipt as a sheet from the bottom of the screen. Close it with the close control or <kbd>Esc</kbd>.
+
+## What a receipt tells you
+
+- The store, or that the value covers all stores
+- The exact primary and comparison windows
+- What the value was calculated from, and the source behind it
+- Grouping, filters, sorting, and paging where they apply
+- The operands and the result, from the same response
+- Data coverage and how current the inputs are
+- Integration health, labelled separately
+
+## Metric kinds
+
+Every single-metric receipt shows one kind badge, describing how the value is produced.
+
+| Kind | What it means |
+| --- | --- |
+| Direct | One stored metric or grouped result, with no operands combined. Filters and aggregation may still apply. |
+| Derived | A deterministic formula over one or more other metrics. |
+| Dimension | A label or grouping key, such as Product or Channel. It is never totaled. |
+| Modeled | A statistical, attribution, or forecasting output rather than plain arithmetic. |
+| Manual | Human-entered data, with author and date evidence instead of sync evidence. |
+
+Composite reports can contain several kinds, so they show no single kind badge.
+
+## Metric states
+
+State describes the data behind the value, and is independent of kind — a Derived metric can be perfectly fresh, and a Direct metric can be overdue.
+
+**Fresh data shows no badge.** A badge always means there is something specific worth knowing.
+
+| Badge | What it means |
+| --- | --- |
+| *(none)* | Required inputs are current and complete. |
+| Incomplete data | Some dates or inputs are missing. The value is still valid for a clearly stated coverage window. |
+| Update overdue | Inputs are internally consistent, but an expected refresh from the source has not completed. |
+| Current period | The data comes from a period that is still open, so it can still change. |
+| Estimate | The value is a genuine projection, not just an unfinished day. |
+| Unavailable | A required input is missing, mismatched, or untrusted. Aloftly shows an em dash rather than inferring a value. |
+
+When more than one applies, the most serious wins, in this order: Unavailable, Incomplete data, Update overdue, Estimate, Current period.
+
+Every badge names a concrete risk to the number in front of you. Aloftly does not downgrade a metric on a technicality — a Product dimension is not marked incomplete simply because a category had no activity on some days.
+
+<Note>
+  Integration health is reported separately from data quality, because they answer different questions. A disconnected Shopify integration can still have perfectly valid historical revenue — it just cannot update now. And a connected integration is not proof that every day in your selected range is present.
+</Note>
+
+## Where receipts appear
+
+Overview KPIs, dashboard metrics and composite report titles, chart legends and funnel stages, quantitative table headers and their individual rows, the Stores views and breakdown tables, and Experiment OS and Intelligems result fields.
+
+Widget titles you write yourself stay as your own text; the metric identity comes from the query behind the widget.
+
+<AccordionGroup>
+  <Accordion title="Time, coverage, and currency" icon="clock">
+    Metric windows are half-open — the start date is included, the end date is not.
+
+    Receipt windows are labelled in UTC. Day-level evidence shows dates; sync and capture evidence shows date, time, and timezone.
+
+    Derived metrics require their inputs to cover compatible windows. When they do not, Aloftly reports the metric as unavailable rather than dividing mismatched periods into a plausible-looking number.
+
+    All-store money values are unavailable when the included stores use different currencies, because Aloftly does not perform foreign-exchange conversion.
+  </Accordion>
+  <Accordion title="What a receipt never shows" icon="shield">
+    Receipts explain a value in customer-safe terms. They never expose database tables or columns, raw queries, internal keys, credentials, raw provider payloads or errors, or any data belonging to another organization or store.
+
+    The scope of every receipt is determined server-side from your authenticated session, not from anything the browser asks for.
+  </Accordion>
+  <Accordion title="When something goes wrong" icon="triangle-alert">
+    Receipts are a trust feature, not a new reason to hide valid data. If a receipt cannot be produced or displayed, the metric value itself is preserved and the panel reports that the definition is unavailable.
+
+    The exception is a genuinely missing input: when a metric cannot be calculated correctly, Aloftly suppresses the value itself rather than showing a number it cannot stand behind.
+  </Accordion>
+</AccordionGroup>
+
+## Current limits
+
+- Receipt windows are labelled in UTC. Store-timezone labelling is not available yet.
+- There is no automatic currency conversion, so mixed-currency all-store money totals report as unavailable rather than being converted.

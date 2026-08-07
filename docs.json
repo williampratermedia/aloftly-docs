@@ -22,6 +22,12 @@
             ]
           },
           {
+            "group": "Core concepts",
+            "pages": [
+              "concepts/metric-receipts"
+            ]
+          },
+          {
             "group": "Integrations",
             "pages": [
               "integrations/intelligems"

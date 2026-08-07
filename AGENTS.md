@@ -29,6 +29,8 @@
 | test idea | idea, ticket | ICE-scored backlog item in Experiment OS. |
 | Overview | homepage, home dashboard | The proactive briefing page: what changed, what it means, what to do. |
 | dashboard | report | A user-built dashboard from the dashboard builder. |
+| Metric Receipt | trusted metric modal, tooltip | The response-bound explanation for one displayed metric. Capitalized — it's a feature name. The panel is a popover on desktop and a sheet on mobile, so never call it a modal. |
+| Metric Library | metric glossary, data dictionary | The generated reference defining what each metric means in general. A Receipt explains one specific value; the Library defines the metric. |
 
 ## Voice & style
 
