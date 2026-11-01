@@ -51,5 +51,14 @@ Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/sett
 - If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
 - If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
 
+### Metric Library publication
+
+Metric definitions and lifecycle status come from the app repository's
+`src/lib/metrics/metric-library.ts`. Its `pnpm docs:metrics` command updates the
+app's reference files; it does not publish this separate Mintlify repository.
+Carry definition/status changes into the corresponding customer-facing MDX
+pages and index here, preserve the public presentation, and verify the live
+pages after merging. Never copy private runbooks or operator details.
+
 ### Resources
 - [Mintlify documentation](https://mintlify.com/docs)
